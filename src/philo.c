@@ -6,7 +6,7 @@
 /*   By: ehay <ehay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:22:42 by ehay              #+#    #+#             */
-/*   Updated: 2024/04/18 16:20:37 by ehay             ###   ########.fr       */
+/*   Updated: 2024/04/19 16:18:09 by ehay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	main(int argc, char **argv)
 		init_program(&program, philos);
 		init_forks(forks, ft_atoi(argv[1]));
 		init_philos(philos, &program, forks, argv);
+		create_thread(&program, philos, forks);
+		// destroy les thread
 	}
 	else
 		ft_error(1);

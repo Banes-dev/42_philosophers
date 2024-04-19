@@ -4,7 +4,7 @@ CFLAGS = -g -Wall -Wextra -Werror
 
 # Normal
 NAME = philo
-FUNC = src/philo.c src/error.c src/utils.c src/init.c
+FUNC = src/philo.c src/error.c src/utils.c src/init.c src/thread.c src/thread_action.c
 OBJS = ${FUNC:.c=.o}
 
 
