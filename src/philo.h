@@ -6,7 +6,7 @@
 /*   By: ehay <ehay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:23:01 by ehay              #+#    #+#             */
-/*   Updated: 2024/04/19 16:17:08 by ehay             ###   ########.fr       */
+/*   Updated: 2024/04/22 15:42:45 by ehay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,24 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
 			char **argv);
 
 // Thread
-void	create_thread(t_program *program, t_philo *philos, pthread_mutex_t *forks);
+void	create_thread(t_program *program, t_philo *philos,
+			pthread_mutex_t *forks);
 int		dead_loop(t_philo *philo);
+
+// Action of philo
+void	eat(t_philo philos);
+void	sleep_philo(t_philo philos);
+void	think(t_philo philos);
 
 // Monitor
 void	print_message(char *str, t_philo *philo, int id);
-void	monitor(void *pointer);
+void	*monitor(void *pointer);
 
 // Error
 void	ft_error(int num_error);
 
 // Utils
+void	destory_all(char *str, t_program *program, pthread_mutex_t *forks);
 int		ft_atoi(const char *nptr);
 int		ft_usleep(size_t milliseconds);
 size_t	get_current_time(void);

@@ -6,7 +6,7 @@
 /*   By: ehay <ehay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 15:23:42 by ehay              #+#    #+#             */
-/*   Updated: 2024/04/19 16:17:01 by ehay             ###   ########.fr       */
+/*   Updated: 2024/04/22 15:52:03 by ehay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // message
 void	print_message(char *str, t_philo *philo, int id)
 {
-	int	time;
+	size_t	time;
 
 	pthread_mutex_lock(philo->write_lock);
 	time = get_current_time() - philo->start_time;
@@ -25,26 +25,26 @@ void	print_message(char *str, t_philo *philo, int id)
 }
 
 // check philo dead
-int	philo_dead(t_philo *philos, int time_to_die)
+int	philo_dead(t_philo *philo, size_t time_to_die)
 {
-	pthread_mutex_lock(philos->meal_lock);
-	if (get_current_time() - philos->last_meal >= time_to_die
-		&& philos->eating == 0)
-		return (pthread_mutex_unlock(philos->meal_lock), 1);
-	pthread_mutex_unlock(philos->meal_lock);
+	pthread_mutex_lock(philo->meal_lock);
+	if (get_current_time() - philo->last_meal >= time_to_die
+		&& philo->eating == 0)
+		return (pthread_mutex_unlock(philo->meal_lock), 1);
+	pthread_mutex_unlock(philo->meal_lock);
 	return (0);
 }
 
 int	check_philo_are_dead(t_philo *philos)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < philos[0].num_of_philos)
 	{
-		if (philo_dead(&philos, philos[i].time_to_die))
+		if (philo_dead(&philos[i], philos[i].time_to_die))
 		{
-			print_message("died", &philos, philos[i].id);
+			print_message("died", &philos[i], philos[i].id);
 			pthread_mutex_lock(philos[i].dead_lock);
 			*philos->dead = 1;
 			pthread_mutex_unlock(philos[i].dead_lock);
@@ -58,8 +58,8 @@ int	check_philo_are_dead(t_philo *philos)
 // check philo are ate
 int	check_philo_are_ate(t_philo *philos)
 {
-	int i;
-	int finish_eat;
+	int	i;
+	int	finish_eat;
 
 	i = 0;
 	finish_eat = 0;
@@ -87,11 +87,12 @@ int	check_philo_are_ate(t_philo *philos)
 // monitor
 void	*monitor(void *pointer)
 {
-	t_philo *philos;
+	t_philo	*philos;
 
 	philos = (t_philo *)pointer;
 	while (1)
-		if (check_philo_are_dead(philos) == 1 || check_philo_are_ate(philos) == 1)
-			break;
+		if (check_philo_are_dead(philos) == 1
+			|| check_philo_are_ate(philos) == 1)
+			break ;
 	return (pointer);
 }
