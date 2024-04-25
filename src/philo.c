@@ -6,7 +6,7 @@
 /*   By: ehay <ehay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:22:42 by ehay              #+#    #+#             */
-/*   Updated: 2024/04/22 15:23:28 by ehay             ###   ########.fr       */
+/*   Updated: 2024/04/25 15:22:08 by ehay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,15 @@ int	check_args_isdigit(char *arg)
 
 void	ft_check_args(char **argv)
 {
-	// nb philo
 	if (ft_atoi(argv[1]) > 200 || ft_atoi(argv[1]) <= 0
 		|| check_args_isdigit(argv[1]) == 1)
 		ft_error(11);
-	// time to die
 	if (ft_atoi(argv[2]) < 60 || check_args_isdigit(argv[2]) == 1)
 		ft_error(12);
-	// time to eat
 	if (ft_atoi(argv[3]) < 60 || check_args_isdigit(argv[3]) == 1)
 		ft_error(13);
-	// time to sleep
 	if (ft_atoi(argv[4]) < 60 || check_args_isdigit(argv[4]) == 1)
 		ft_error(14);
-	// optionnal
 	if (argv[5] && (ft_atoi(argv[5]) < 0 || check_args_isdigit(argv[5])))
 		ft_error(15);
 }
@@ -60,7 +55,7 @@ int	main(int argc, char **argv)
 		init_program(&program, philos);
 		init_forks(forks, ft_atoi(argv[1]));
 		init_philos(philos, &program, forks, argv);
-		create_thread(&program, philos, forks);
+		create_thread(&program, forks);
 		destory_all(NULL, &program, forks);
 	}
 	else

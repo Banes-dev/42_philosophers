@@ -6,7 +6,7 @@
 /*   By: ehay <ehay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 15:23:42 by ehay              #+#    #+#             */
-/*   Updated: 2024/04/22 15:52:03 by ehay             ###   ########.fr       */
+/*   Updated: 2024/04/25 15:21:52 by ehay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	philo_dead(t_philo *philo, size_t time_to_die)
 	pthread_mutex_lock(philo->meal_lock);
 	if (get_current_time() - philo->last_meal >= time_to_die
 		&& philo->eating == 0)
-		return (pthread_mutex_unlock(philo->meal_lock), 1);
+	{
+		pthread_mutex_unlock(philo->meal_lock);
+		return (1);
+	}
 	pthread_mutex_unlock(philo->meal_lock);
 	return (0);
 }

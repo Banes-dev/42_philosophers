@@ -6,7 +6,7 @@
 /*   By: ehay <ehay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:23:01 by ehay              #+#    #+#             */
-/*   Updated: 2024/04/22 15:42:45 by ehay             ###   ########.fr       */
+/*   Updated: 2024/04/25 15:00:13 by ehay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,13 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
 			char **argv);
 
 // Thread
-void	create_thread(t_program *program, t_philo *philos,
-			pthread_mutex_t *forks);
+void	create_thread(t_program *program, pthread_mutex_t *forks);
 int		dead_loop(t_philo *philo);
 
 // Action of philo
-void	eat(t_philo philos);
-void	sleep_philo(t_philo philos);
-void	think(t_philo philos);
+void	eat(t_philo *philo);
+void	sleep_philo(t_philo *philo);
+void	think(t_philo *philo);
 
 // Monitor
 void	print_message(char *str, t_philo *philo, int id);
